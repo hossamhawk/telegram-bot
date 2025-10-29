@@ -14,7 +14,7 @@ if not BOT_TOKEN or not ADMIN_ID:
 bot = telebot.TeleBot(BOT_TOKEN)
 ADMIN_ID = int(ADMIN_ID)
 
-# 🔗 رابط Google Sheet
+# 🔗 رابط Google Sheet (استبدله برابط الشيت الحقيقي)
 SHEET_URL = "https://docs.google.com/spreadsheets/d/your-sheet-id/edit"
 
 # 🔧 إعداد الاتصال بـ Google Sheets
@@ -61,20 +61,9 @@ def send_pdf(message):
     pdf_id = "BQACAgIAAxkBAAEYpLVpAAFoGh48lJllWfl6MfR9CZOFiggAAnZQAAL6hoFK-i0dKIDQ5VI2BA"
     bot.send_document(message.chat.id, pdf_id, caption="📄 إليك الملف المطلوب")
 
-# 🌐 Endpoint بسيط لتشغيل UptimeRobot
-from flask import Flask
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return "✅ البوت شغال 24/7"
-
-import threading
-
-def run_flask():
-    app.run(host="0.0.0.0", port=8080)
-
-threading.Thread(target=run_flask).start()
+# ✅ إبقاء البوت شغال دائمًا
+from keep_alive import keep_alive
+keep_alive()
 
 # 🚀 تشغيل البوت
 print("🚀 البوت شغال ومستعد...")

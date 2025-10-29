@@ -3,6 +3,8 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os, json, time
+from flask import Flask
+import threading
 
 # 🧠 إعداد التوكن ومتغيرات البيئة
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -15,7 +17,7 @@ bot = telebot.TeleBot(BOT_TOKEN)
 ADMIN_ID = int(ADMIN_ID)
 
 # 🔗 رابط Google Sheet (استبدله برابط الشيت الحقيقي)
-SHEET_URL = "https://docs.google.com/spreadsheets/d/your-sheet-id/edit"
+SHEET_URL = os.getenv("SHEET_URL")
 
 # 🔧 إعداد الاتصال بـ Google Sheets
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -61,9 +63,18 @@ def send_pdf(message):
     pdf_id = "BQACAgIAAxkBAAEYpLVpAAFoGh48lJllWfl6MfR9CZOFiggAAnZQAAL6hoFK-i0dKIDQ5VI2BA"
     bot.send_document(message.chat.id, pdf_id, caption="📄 إليك الملف المطلوب")
 
-# ✅ إبقاء البوت شغال دائمًا
-from keep_alive import keep_alive
-keep_alive()
+# ✅ إعداد Flask لتشغيل السيرفر
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "✅ البوت شغال 24/7 - كل حاجة تمام!"
+
+def run_flask():
+    app.run(host="0.0.0.0", port=8080)
+
+# 🚀 تشغيل Flask في خيط منفصل
+threading.Thread(target=run_flask).start()
 
 # 🚀 تشغيل البوت
 print("🚀 البوت شغال ومستعد...")

@@ -3,7 +3,7 @@ name: Run Telegram Bot
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"  # يشغل البوت كل 15 دقيقة
+    - cron: "*/5 * * * *"  # يشغل البوت كل 15 دقيقة
 
 jobs:
   run-bot:

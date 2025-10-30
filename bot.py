@@ -60,7 +60,7 @@ def start(message):
 # 📘 إرسال الملف
 @bot.message_handler(func=lambda message: message.text == "📘 تحميل الكتاب")
 def send_pdf(message):
-    pdf_id = "BQACAgIAAxkBAAEYpLVpAAFoGh48lJllWfl6MfR9CZOFiggAAnZQAAL6hoFK-i0dKIDQ5VI2BA"
+    pdf_id = "BQACAgIAAxkBAAE9JnVpAyxKmWINvNUmJWOgEwyuly0_CQACdlAAAvqGgUpTy889n198UzYE"
     bot.send_document(message.chat.id, pdf_id, caption="📄 إليك الملف المطلوب")
 
 # ✅ إعداد Flask لتشغيل السيرفر
